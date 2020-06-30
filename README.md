@@ -1,10 +1,12 @@
-# SurpriseMe
+# SurpriseMe - JS project
 
 INFO
 ------
-Project name: SurpriseMe
+Project name: SurpriseMe 
 
-node.js 
+node version : v14.1.0
+
+npm version : 6.14.5
 
 INSTRUCTIONS
 -------------
@@ -25,6 +27,7 @@ I have written two test suites , Unit tests and E2E tests, if you would like to 
 
 I have added another surprise for you - useless facts.
 If this type was chosen, we should return a random useless fact.
+
 This type will be chosen only if the user’s birth year is divided by 3 with no remainders.
 
 Enjoy :)

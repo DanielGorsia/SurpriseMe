@@ -1,0 +1,33 @@
+{
+  "name": "suprise_me",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "12.x"
+  },
+  "main": "main.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "server": "^1.0.29"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0",
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node main.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "verbose": true
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

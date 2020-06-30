@@ -34,7 +34,7 @@ app.use((error, req, res, next) => {
 
 //check that the server is alive
 app.listen(port, () => {
-    console.log(`I am alive on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 })
 
 

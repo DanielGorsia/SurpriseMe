@@ -211,7 +211,7 @@ describe("callNameSum function", () => {
 
 // call uselessFacst function
 describe("callUselessFacts function", () => {
-  test("should return a type=kanye and result=fact", async() => {
+  test("should return a type=useless-facts and result=fact", async() => {
     let response = await utils.callUselessFactsApi();
 
     expect(response).toHaveProperty('type');

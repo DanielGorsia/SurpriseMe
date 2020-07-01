@@ -4,13 +4,18 @@ const axios = require("axios");
 const utils = require("../utils/ApiUtils");
 
 router.get("/surprise", async (req, res)=> {
-    if(!req.query.name || !req.query.birth_year){
-        res.status(400).send("Invalid request");
+    try{
+        if(!req.query.name || !req.query.birth_year){
+            res.status(400).send("Invalid request");
+        }
+        let name = req.query.name;
+        let birth_year = req.query.birth_year;
+        let response = await utils.surpriseMe(name, birth_year);
+        res.status(200).send(response);
     }
-    let name = req.query.name;
-    let birth_year = req.query.birth_year;
-    let response = await utils.surpriseMe(name, birth_year);
-    res.status(200).send(response);
+   catch(error){
+       res.status(404).send('No surprise for you!​');
+   }
 });
 
 router.get("/stats", (req, res)=> {

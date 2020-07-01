@@ -1,11 +1,17 @@
 const axios = require("axios");
 
-var counters = [
-    {type:"chuck-norris-joke", counter: 0},
-    {type:"kanye-quote", counter: 0}, 
-    {type: "name-sum", counter: 0},
-    {type: "useless-facts", counter: 0} //mine
-];
+let types = {
+    "chuck": "chuck-norris-joke",
+    "kanye": "kanye-quote",
+    "nameSum": "name-sum",
+    "facts": "useless-facts"
+};
+
+counters =
+{"chuck-norris-joke":  0,
+"kanye-quote": 0, 
+"name-sum": 0,
+"useless-facts": 0};
 
 const chuckApi = "https://api.chucknorris.io/jokes/random";
 const kanyeApi = "https://api.kanye.rest";
@@ -29,13 +35,13 @@ async function randomAndExcute(functions){
 
 function addChuckIfNeeded(functionsArray, birthYear){
     if(birthYear <= 2000){
-        functionsArray.push(callChuckApi);
+        functionsArray.push(callChuckApi); 
     }
 }
 
 function addKanyeIfNeeded(functionsArray, name, birthYear){
     if(birthYear > 2000 &&
-         (name.length == 0 || 
+        (name.length == 0 || 
             (name.charAt(0) != 'A' && name.charAt(0) != 'Z'))){
         functionsArray.push(callKanyeApi);
     }
@@ -56,9 +62,10 @@ function addUselessFactsIfNeeded(functionsArray, birthYear){
 async function callChuckApi(){
     let response = await axios.get(chuckApi);
     let joke = response.data.value;
-    counters[0].counter++;
+    let type = types["chuck"];
+    counters[type]++;
     return {
-        type: counters[0].type,
+        type: type,
         result : joke,
     };
 }
@@ -66,20 +73,22 @@ async function callChuckApi(){
 async function callKanyeApi(){
     let response = await axios.get(kanyeApi);
     let quote = response.data.quote;
-    counters[1].counter++;
+    let type = types["kanye"];
+    counters[type]++;
     return {
-        type: counters[1].type,
+        type: type,
         result : quote,
     };
 }
 
-//mine
+//another surprise
 async function callUselessFactsApi(){
     let response = await axios.get(uselessFactsApi);
     let fact = response.data.text + " source: " + response.data.source;
-    counters[3].counter++;
+    let type = types["facts"];
+    counters[type]++;
     return {
-        type: counters[3].type,
+        type: type,
         result : fact,
     };
 }
@@ -91,10 +100,11 @@ function nameSumFunctionBuilder(name){
         for(let index=0; index<letters.length; index++){
             sum += letters[index].charCodeAt(0) - 'a'.charCodeAt(0) + 1; 
         }
-        counters[2].counter++;
+        let type = types["nameSum"];
+        counters[type]++;
         return new Promise ((resolve, reject)=>{
             data = {
-                type: counters[2].type,
+                type: type,
                 result : sum,
             }
             resolve(data);
@@ -103,19 +113,22 @@ function nameSumFunctionBuilder(name){
 }
 
 function stats(){
-    let sumOfRequests = counters.reduce(function(total, arr) { 
-        // return the sum with previous value
-        return total + arr.counter;
+    let countersArray = Object.values(counters);
+    let sumOfRequests = countersArray.reduce(function(total, currElement) { 
+        return total + currElement; // return the sum with previous value
       }, 0); //set initial value as 0
+    let distributions = [];
+    for(let key in counters){
+        distributions.push({type: key, counter: counters[key]})
+    }
     return {
         requests: sumOfRequests,
-        distribution: counters,
+        distribution: distributions,
     }
 }
 
 module.exports={
     surpriseMe : surpriseMe,
-    stats: stats, 
     addChuckIfNeeded : addChuckIfNeeded,
     callChuckApi: callChuckApi,
     addKanyeIfNeeded: addKanyeIfNeeded,

@@ -7,7 +7,7 @@ let types = {
     "facts": "useless-facts"
 };
 
-counters =
+let counters =
 {"chuck-norris-joke":  0,
 "kanye-quote": 0, 
 "name-sum": 0,
